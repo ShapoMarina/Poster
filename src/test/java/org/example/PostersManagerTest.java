@@ -56,4 +56,30 @@ public class PostersManagerTest {
         String[] expected = {"Человек-невидимка", "Отель <<Белград>>", "Вперед"};
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void mustFindTheLastAddedMoviesLessThanTheLimit() {
+        PostersManager manager = new PostersManager(3);
+
+        manager.addingMovie("Бладшот");
+        manager.addingMovie("Вперед");
+
+        String[] actual = manager.findLast();
+        String[] expected = {"Вперед", "Бладшот"};
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findTheLatestAddedMoviesInTheAmountOfLimit() {
+        PostersManager manager = new PostersManager(3);
+
+        manager.addingMovie("Бладшот");
+        manager.addingMovie("Вперед");
+        manager.addingMovie("Отель <<Белград>>");
+
+
+        String[] actual = manager.findLast();
+        String[] expected = {"Отель <<Белград>>", "Вперед", "Бладшот"};
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
